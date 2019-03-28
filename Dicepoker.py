@@ -1,4 +1,11 @@
 import random
+import PokerApp
+import Textinterface
+
+inter = Textinterface()
+app = PokerApp(inter)
+app.run()
+
 class Dice(object):
     def __init__(self):
         self.dice = []
@@ -27,41 +34,76 @@ class Dice(object):
             return "Garbage", 0
         
 class PokerApp(object):
-    def __init__(self):
+    def __init__(self, interface):
         self.dice = Dice()
         self.money = 100
+        self.interface = interface
+    
     def wantToPlay(self):
         ans = input("Do you wish to try your luck?")
         if ans[0].lower() == "y":
             return True
         else:
             return False
+    
     def run(self):
         print ("You currently have %s." %self.money)
-        while self.money >= 10 and self.wantToPlay() == True:
+        while self.money >= 10 and self.interface.wantToPlay() == True:
             self.playRound()
+            self.interface.close()
+    
     def playRound(self):
         self.money -= 10
+        self.interface.setMoney(self.money)
         self.doRolls()
         result, score = self.dice.score()
+        self.interface.showResult(result, score)
         print ("%s. You win %s." %(result, score))
         self.money += score
+        self.interface.setMoney(self.money)
         print ("You currently have $%s." %self.money)
+    
     def doRolls(self):
         self.dice = Dice()
         rollCount = 1
+        self.interface.setDice(self.dice.values())
         print ("Dice: %s" %self.dice.dice)
-        toRoll = input("Enter list of which to change ([] to stop)")
+        toRoll = self.interface.chooseDice()
         while rollCount < 3 and toRoll != []:
             rollCount += 1
             self.dice.roll(toRoll)
+            self.interface.setDice(self.dice.values())
             print ("Dice: %s" %self.dice.dice)
             if rollCount < 3:
                 reRoll = input("Would you like to roll again?")
                 if reRoll[0].lower() == "y":
-                    toRoll = input("Enter list of which to change ([] to stop)")
+                    toRoll = self.interface.chooseDice()
                 else:
                     break
-            
+
+class TextInterface:
+    def __init__(self):
+        print('welcome to video poker')
+
+    def setMoney(self, amt):
+        print('you currently have ${0}.'.format(amt))
+
+    def setDice(self, values):
+        print('Dice:', values)
+
+    def wantToPlay(self):
+        ans = input("Do you wish to try your luck?")
+        if ans[0].lower() == "y":
+            return True
+
+    def close(self):
+        print('\nThanks for playing!')
+
+    def showResult(self, msg, score):
+        print("{O}. You win ${ 1}. " .format(msg, score ))
+
+    def chooseDice(self):
+        return eval(input('Enter list of which to change ([] to stop'))
+          
 game = PokerApp()
 game.run()
