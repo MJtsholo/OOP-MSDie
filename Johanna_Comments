@@ -1,0 +1,27 @@
++ Assignment 1: Rolling multi-sided die
++
++ Your code looks pretty clean and concise. 
++
++ It would have however been nice to see the setValue method,to set the die
++ to a specific value (i.e cheat). I am only spotting the method for rolling the die(roll) and getting the value of the
++ die(getValue).
++
++
++
++ Assignment 2: Dice Roller widget
++
++ Likewise here the code looks great and so does the dice roller widget, I am loving the background colour, it really
++ grabs one attention.
++ 
++
++
++ Assignment 3: Dice Poker
++
++ The code looks ligit, and the graphical user interface works without any delays nor faults. Once the dice is rolled,
++ you are able to see how much you have left as well as your score.
++  
++ The colour is again striking and grabs ones attention. 
++ 
++ It would be nice though to have some comments added just incase there is someone else to work on your code and maybe
++ they would like to ad or change a certain feature, they would easily know why what is where and why but overall great
++ code!
